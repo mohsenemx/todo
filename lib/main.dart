@@ -14,6 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primaryColor: Colors.yellow[800],
+        splashColor: Colors.yellow[600],
+        inputDecorationTheme: InputDecorationTheme(
+          fillColor: Colors.yellow[800],
+          focusColor: Colors.yellow,
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
@@ -31,16 +39,22 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.yellow[300],
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.yellow[800],
         onPressed: () {
           showAddTaskPopUp(context);
         },
         child: Icon(Icons.add),
       ),
       appBar: AppBar(
+        backgroundColor: Colors.yellow[600],
         title: Text('Todo List App'),
+        shadowColor: Colors.transparent,
       ),
-      body: HomeScreen(),
+      body: SafeArea(
+        child: HomeScreen(),
+      ),
     );
   }
 }
