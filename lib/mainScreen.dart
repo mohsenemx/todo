@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, must_be_immutable
 
 import 'package:flutter/material.dart';
-
+import 'main.dart';
 // Global variables
 
 List toDoList = [
@@ -9,6 +9,16 @@ List toDoList = [
   ['Kill your mom', true],
   ['Kill your father', false]
 ];
+void setStorage() {
+  box.put('storage', toDoList);
+}
+
+void loadStorage() {
+  if (box.get('storage') == null) {
+  } else {
+    toDoList = box.get('storage');
+  }
+}
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    loadStorage();
     return Container(
         child: ListView.builder(
       itemCount: toDoList.length,
@@ -73,9 +84,11 @@ class TaskItem extends StatelessWidget {
                 Checkbox(
                   value: isTaskDone,
                   onChanged: onChanged,
+                  fillColor: MaterialStateColor.resolveWith(
+                      (states) => Colors.yellow[800]!),
                 ),
                 SizedBox(
-                  width: 5,
+                  width: 3,
                 ),
                 Text(taskName),
               ],

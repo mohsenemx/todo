@@ -1,10 +1,23 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:todo/mainScreen.dart';
 import 'package:todo/utils.dart';
 
-void main() {
+var box;
+Future<void> initStorage() async {
+  box = await Hive.openBox('todo_storage');
+  // ar wtf = Hive.box('todo_storage');
+  box.put('test', 'success');
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+  await initStorage();
   runApp(const MyApp());
 }
 
@@ -17,10 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.yellow[800],
         splashColor: Colors.yellow[600],
-        inputDecorationTheme: InputDecorationTheme(
-          fillColor: Colors.yellow[800],
-          focusColor: Colors.yellow,
-        ),
+        primaryColorLight: Colors.yellow[800],
       ),
       debugShowCheckedModeBanner: false,
       home: HomePage(),

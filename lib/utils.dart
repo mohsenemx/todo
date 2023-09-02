@@ -10,7 +10,7 @@ void showAddTaskPopUp(BuildContext context) {
     context: context,
     builder: (context) {
       return AlertDialog(
-        backgroundColor: Colors.yellow[400],
+        backgroundColor: Colors.yellow[300],
         scrollable: false,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5),
@@ -31,6 +31,8 @@ void showAddTaskPopUp(BuildContext context) {
                     autofocus: true,
                     decoration: InputDecoration(
                       hintText: 'Enter a task name',
+                      fillColor: MaterialStateColor.resolveWith(
+                          (states) => Colors.red),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5),
                         gapPadding: 5,
@@ -95,9 +97,11 @@ class _TaskDoneState extends State<TaskDone> {
                 isTaskDone = value ?? false;
               });
             },
+            fillColor:
+                MaterialStateColor.resolveWith((states) => Colors.yellow[800]!),
           ),
           SizedBox(
-            width: 5,
+            width: 2,
           ),
           Text('Done?'),
         ],
@@ -112,5 +116,6 @@ void newTaskisAdded() {
 
   taskName1.text = '';
   isTaskDone = false;
+  setStorage();
   print(toDoList);
 }
