@@ -18,6 +18,7 @@ void main() async {
 
   await Hive.initFlutter();
   await initStorage();
+
   runApp(const MyApp());
 }
 

@@ -116,6 +116,6 @@ void newTaskisAdded() {
 
   taskName1.text = '';
   isTaskDone = false;
+  // where I should call realUpdateUI()
   setStorage();
-  print(toDoList);
 }
