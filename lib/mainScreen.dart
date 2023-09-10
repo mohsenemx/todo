@@ -16,6 +16,7 @@ void setStorage() {
 
 void loadStorage() {
   if (box.get('storage') == null) {
+    todo();
   } else {
     toDoList = box.get('storage');
   }
@@ -27,7 +28,10 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late List<Animation<Offset>>? _animations; // List of animations
   void realUpdateUI() {
     setState(() {
       toDoList = box.get('storage') ?? toDoList;
@@ -38,35 +42,75 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       toDoList[index][1] = !toDoList[index][1];
     });
+    realUpdateUI();
   }
 
   void removeItem(index) {
     setState(() {
       toDoList.removeAt(index);
     });
+    realUpdateUI();
+    restartAnimation();
+  }
+
+  void updateN() {
+    _animations = List.generate(
+      toDoList.length,
+      (index) {
+        return Tween<Offset>(
+          begin: const Offset(-1.0, 0.0),
+          end: const Offset(0.0, 0.0),
+        ).animate(CurvedAnimation(
+          parent: _controller,
+          curve: Interval(
+            index / toDoList.length, // Stagger each item
+            1.0,
+            curve: Curves.easeInOut,
+          ),
+        ));
+      },
+    );
+    _controller.forward();
+  }
+
+  void restartAnimation() {
+    _controller.reset(); // Reset the animation controller
+    updateN(); // Trigger the animation again
   }
 
   @override
   initState() {
     super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     loadStorage();
+    updateN();
 
-    return Container(
-        child: ListView.builder(
-      itemCount: toDoList.length,
-      itemBuilder: (context, index) {
-        return TaskItem(
-          taskName: toDoList[index][0],
-          isTaskDone: toDoList[index][1],
-          onChanged: (value) => todoItemStateisChanged(value!, index),
-          onTap: () => removeItem(index),
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return ListView.builder(
+          itemCount: toDoList.length,
+          itemBuilder: (context, index) {
+            return SlideTransition(
+              position: _animations![index],
+              child: TaskItem(
+                taskName: toDoList[index][0],
+                isTaskDone: toDoList[index][1],
+                onChanged: (value) => todoItemStateisChanged(value!, index),
+                onTap: () => removeItem(index),
+              ),
+            );
+          },
         );
       },
-    ));
+    );
   }
 }
 
@@ -112,7 +156,11 @@ class TaskItem extends StatelessWidget {
                   SizedBox(
                     width: 3,
                   ),
-                  Text(taskName),
+                  Wrap(
+                    children: [
+                      Text(taskName),
+                    ],
+                  ),
                 ],
               ),
             ),

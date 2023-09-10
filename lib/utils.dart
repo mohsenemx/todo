@@ -3,6 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:todo/mainScreen.dart';
 
+const emptyNameSnackBar = SnackBar(
+  content: Text('Task name cannot be empty'),
+  duration: Duration(seconds: 2),
+  backgroundColor: Colors.red,
+);
+const tooLongNameSnackBar = SnackBar(
+  content:
+      Text('Task name is too long! It shouldn\'t be longer than 40 characters'),
+  duration: Duration(seconds: 2),
+  backgroundColor: Colors.red,
+);
 TextEditingController taskName1 = TextEditingController();
 bool isTaskDone = false;
 void showAddTaskPopUp(BuildContext context) {
@@ -49,10 +60,14 @@ void showAddTaskPopUp(BuildContext context) {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    if (false) {
-                      todo(); // handle if task name is empty
-                    } else if (false) {
-                      // handle if task description is empty
+                    if (taskName1.text.trim() == '') {
+                      // handle if task name is empty
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(emptyNameSnackBar);
+                    } else if (taskName1.text.length >= 40) {
+                      // handle if task name is too long
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(tooLongNameSnackBar);
                     } else {
                       // Nothing is empty, create the task
 

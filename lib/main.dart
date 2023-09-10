@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:todo/mainScreen.dart';
 import 'package:todo/utils.dart';
+import 'aboutMeScreen.dart';
 
 var box;
 Future<void> initStorage() async {
@@ -60,8 +61,19 @@ class _HomePageState extends State<HomePage> {
       ),
       appBar: AppBar(
         backgroundColor: Colors.yellow[600],
-        title: Text('Todo List App'),
+        title: Center(child: Text('Todo List App')),
         shadowColor: Colors.transparent,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AboutMe()),
+              );
+            },
+            icon: Icon(Icons.question_mark),
+          ),
+        ],
       ),
       body: SafeArea(
         child: HomeScreen(),
