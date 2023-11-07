@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, prefer_const_constructors, avoid_print, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, must_be_immutable, unused_element, sort_child_properties_last, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'dart:async';
 import 'main.dart';
 // Global variables
 
@@ -85,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen>
       vsync: this,
       duration: Duration(milliseconds: 500),
     );
+    Timer.periodic(Duration(milliseconds: 200), (Timer t) => realUpdateUI());
   }
 
   @override

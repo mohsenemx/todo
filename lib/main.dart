@@ -76,6 +76,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: SafeArea(
+        maintainBottomViewPadding: true,
         child: HomeScreen(),
       ),
     );
