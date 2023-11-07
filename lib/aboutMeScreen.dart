@@ -35,7 +35,7 @@ class _AboutMeState extends State<AboutMe> {
               Text('This app was made for fun, trying to improve my skills.'),
               Text(
                   'This was a very fun project to make, with a lot of suffering'),
-              Text('But here we are, with the app ready!'),
+              Text('But here we are, with the installed on your device!'),
             ],
           ),
         ),

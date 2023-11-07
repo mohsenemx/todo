@@ -6,10 +6,7 @@ import 'main.dart';
 // Global variables
 
 List toDoList = [
-  ['Kidnap you', true],
-  ['Kill your mom', true],
-  ['Kill your father', false],
-  ['Prove mammd that I\'m an idiot'],
+  ['Try clicking on + icon in buttom of screen', true],
 ];
 void setStorage() {
   box.put('storage', toDoList);
@@ -86,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen>
       vsync: this,
       duration: Duration(milliseconds: 500),
     );
-    Timer.periodic(Duration(milliseconds: 200), (Timer t) => realUpdateUI());
+    Timer.periodic(Duration(milliseconds: 300), (Timer t) => realUpdateUI());
   }
 
   @override
