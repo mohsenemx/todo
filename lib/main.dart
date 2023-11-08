@@ -61,7 +61,12 @@ class _HomePageState extends State<HomePage> {
       ),
       appBar: AppBar(
         backgroundColor: Colors.yellow[600],
-        title: Center(child: Text('Todo List App')),
+        title: Padding(
+          padding: const EdgeInsets.only(left: 48),
+          child: Center(
+            child: Text('Todo List App'),
+          ),
+        ),
         shadowColor: Colors.transparent,
         actions: [
           IconButton(
@@ -71,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                 MaterialPageRoute(builder: (context) => const AboutMe()),
               );
             },
-            icon: Icon(Icons.question_mark),
+            icon: Icon(Icons.info_outline),
           ),
         ],
       ),

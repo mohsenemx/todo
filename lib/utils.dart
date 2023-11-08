@@ -45,6 +45,7 @@ void showAddTaskPopUp(BuildContext context) {
                       fillColor: MaterialStateColor.resolveWith(
                           (states) => Colors.red),
                       border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.yellow[800]!),
                         borderRadius: BorderRadius.circular(5),
                         gapPadding: 5,
                       ),

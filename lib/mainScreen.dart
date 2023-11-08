@@ -81,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 200),
     );
     Timer.periodic(Duration(milliseconds: 300), (Timer t) => realUpdateUI());
   }
@@ -157,7 +157,13 @@ class TaskItem extends StatelessWidget {
                   ),
                   Wrap(
                     children: [
-                      Text(taskName),
+                      Text(
+                        taskName,
+                        style: TextStyle(
+                          fontFamily: 'Ubuntu',
+                          fontFamilyFallback: ['Vazir'],
+                        ),
+                      ),
                     ],
                   ),
                 ],
